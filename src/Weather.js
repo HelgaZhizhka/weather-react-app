@@ -15,9 +15,11 @@ export default function Weather(props) {
     
         
     return (
-        <div className="container">
-            <h1>{Math.round(temp)}</h1>
-        </div>
-    )
+		<div className="container">
+			<h2>
+				Weather in {props.city} is {Math.round(temp)}
+			</h2>
+		</div>
+	);
 }
 
