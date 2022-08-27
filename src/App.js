@@ -4,8 +4,7 @@ import Weather from './Weather';
 function App() {
   return (
     <div className="App">
-      <h1>Hello from React</h1>
-      <Weather city="New York" />
+      <Weather city="Sofia" />
     </div>
   );
 }
