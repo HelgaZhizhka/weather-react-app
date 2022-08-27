@@ -13,7 +13,6 @@ export default function Weather(props) {
   
     
     function showWeatherData(response) {
-        console.log(response)
         setWeather({
 			temp: response.data.main.temp,
 			wind: response.data.wind.speed,
