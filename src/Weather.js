@@ -1,37 +1,40 @@
 import React, {useState} from "react"
 import axios from "axios"
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Watch } from "react-loader-spinner";
+import "./Weather.css";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 // import ReactAnimatedWeather from "react-animated-weather"
 
 
 export default function Weather(props) {
-	const apiKey = "90a1eb057dca6afbc522be4836ae3e8c";
+	const apiKey = "ede91dffad4c82a2b9559937327bdca6";
 	const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
-    const [city, setCity] = useState(props.city)
-	const [weather, setWeather] = useState({})
-  
-    
-    function showWeatherData(response) {
-        setWeather({
+	const [city, setCity] = useState(props.city);
+	const [weather, setWeather] = useState({ loaded: false });
+	function showWeatherData(response) {
+		console.log(response);
+		setWeather({
+			loaded: true,
+			date: "Saturday, 20 june, 2022, 11:40",
 			temp: response.data.main.temp,
 			wind: response.data.wind.speed,
 			humidity: response.data.main.humidity,
 			icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
 			description: response.data.weather[0].description
 		});
-    }
-    function handleSubmit(event) {
-        event.preventDefault()
-        axios
-			.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
-			.then(showWeatherData);
-    }
-    function searchCity(event) {
-        setCity(event.target.value)
-    }
-        
-	if (weather.temp) {
+	}
+	function handleSubmit(event) {
+		event.preventDefault();
+		// axios
+		// 	.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
+		// 	.then(showWeatherData);
+	}
+	function searchCity(event) {
+		setCity(event.target.value);
+	}
+
+	if (weather.loaded && weather.temp) {
 		return (
 			<div className="container-fluid">
 				<div className="card card-main">
@@ -51,16 +54,12 @@ export default function Weather(props) {
 						</form>
 					</div>
 					<div className="card-body">
-						<span className="time is-block">
-							Saturday, 20 june, 2022, 11:40
-						</span>
+						<span className="time is-block">{weather.date}</span>
 						<span className="degree is-block">
-							{weather.temp && (
-								<span className="value">
-									{Math.round(weather.temp)}
-									<span className="unit">°C</span>
-								</span>
-							)}
+							<span className="value">
+								{Math.round(weather.temp)}
+							</span>
+							<span className="unit">°C</span>
 						</span>
 						<span className="status is-block">
 							<span className="value">
@@ -143,8 +142,7 @@ export default function Weather(props) {
 									<i className="icon fa-solid fa-water"></i>
 									<span className="value">
 										<span id="humidity">
-											{weather.humidity &&
-												weather.humidity}
+											{weather.humidity}
 										</span>
 										%
 									</span>
@@ -158,8 +156,7 @@ export default function Weather(props) {
 									<i className="icon fa-solid fa-wind"></i>
 									<span className="value">
 										<span id="wind">
-											{weather.wind &&
-												Math.round(weather.wind)}
+											{Math.round(weather.wind)}
 										</span>
 										km/h
 									</span>
@@ -191,12 +188,10 @@ export default function Weather(props) {
 			</div>
 		);
 	} else {
-		setTimeout(() => {
-			axios
-				.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
-				.then(showWeatherData);
-		}, 300);
-		return (	
+		axios
+			.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
+			.then(showWeatherData);
+		return (
 			<Watch
 				height="80"
 				width="80"
