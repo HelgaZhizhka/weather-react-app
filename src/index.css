@@ -1,9 +1,24 @@
 body {
-	min-height: 100vh;
+min-height: 100vh;
 }
 .hide {
 	display: none !important;
 }
 .is-block {
 	display: block;
+}
+.svg-icon {
+	display: inline-block;
+    vertical-align: baseline;
+    margin-bottom: -2px;
+}
+.ml-auto {
+	margin: 0 0 0 auto;
+}
+[data-testid="watch-loading"] {
+	width: 100vw;
+	height: 100vh;
+}
+[data-testid="watch-loading"] svg {
+	margin: auto;
 }
