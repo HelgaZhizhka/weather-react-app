@@ -11,7 +11,6 @@ export default function Forecast(props) {
 	}, [props.data.lat]);
 
 	function handleResponse(response) {
-		console.log(response)
 		setForecastData(response.data.daily);
 		setLoaded(true)
 	}
@@ -26,7 +25,6 @@ export default function Forecast(props) {
 	if (loaded) {
 		return (
 			<div className="section">
-				<h2 className="section__title">Forecast</h2>
 				<div className="row">
 					{forecastData.map((dailyForecast, index) => {
 						if (index < 5) {
