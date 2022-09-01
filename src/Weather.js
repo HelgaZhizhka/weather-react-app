@@ -6,6 +6,7 @@ import WeatherData from "./WeatherData";
 import WeatherInfo from "./WeatherInfo";
 import SearchIcon from "./SearchIcon";
 import LocationIcon from "./LocationIcon";
+import Forecast from "./Forecast";
 
 
 export default function Weather(props) {
@@ -16,6 +17,7 @@ export default function Weather(props) {
 		setWeather({
 			loaded: true,
 			date: new Date(response.data.dt * 1000),
+			coord: response.data.coord,
 			temp: response.data.main.temp,
 			wind: response.data.wind.speed,
 			humidity: response.data.main.humidity,
@@ -25,7 +27,7 @@ export default function Weather(props) {
 		});
 	}
 	function searchData() {
-		const apiKey = "ede91dffad4c82a2b9559937327bdca6";
+		const apiKey = "2fe6ec39cead4bf5f5de2e9b905799fc";
 		const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
 		axios
 			.get(`${apiUrl}?q=${city}&appid=${apiKey}&units=metric`)
@@ -61,6 +63,7 @@ export default function Weather(props) {
 				</form>
 				<WeatherData data={weather} />
 				<WeatherInfo data={weather} />
+				<Forecast data={weather.coord} />
 
 				<div className="card__footer">
 					<small>
